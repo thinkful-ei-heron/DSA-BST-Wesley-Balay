@@ -112,12 +112,18 @@ class BinarySearchTree {
       }
     }
   }
-
   _findMin() {
     if (!this.left) {
       return this;
     }
     return this.left._findMin();
+  }
+  
+  _findMax(){
+    if (!this.right) {
+      return this;
+    }
+    return this.right._findMax();
   }
 
 }
