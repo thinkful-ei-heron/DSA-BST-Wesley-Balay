@@ -47,6 +47,9 @@ function tree(t){
 
 
 function treeHeight(tree) {
+
+  //this function's runtime is linear O(n) because we go through both sides of the tree
+  //no matter what.
   
   if (tree === null) {
     return 0;
