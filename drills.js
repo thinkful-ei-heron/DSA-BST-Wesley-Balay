@@ -3,27 +3,27 @@ const Tree = require('./Tree');
 function main() {
   let BST = new Tree();
 
-    BST.insert(3, 3);
-    BST.insert(1, 1);
-    BST.insert(4, 4);
-    BST.insert(6, 6);
-    BST.insert(9, 9);
-    BST.insert(2, 2);
-    BST.insert(5, 5);
-    BST.insert(7, 7);
+  // BST.insert(3, 3);
+  // BST.insert(4, 4);
+  // BST.insert(2, 2);
+  // BST.insert(1, 1);
+  // BST.insert(4, 4);
+  // BST.insert(18, 18);
+  // BST.insert(2, 2);
+  // BST.insert(12, 12);
 
-  // BST.insert('E', null);
-  // BST.insert('A', null);
-  // BST.insert('S', null);
-  // BST.insert('Y', null);
-  // BST.insert('Q', null);
-  // BST.insert('U', null);
-  // BST.insert('E', null);
-  // BST.insert('S', null);
-  // BST.insert('T', null);
-  // BST.insert('I', null);
-  // BST.insert('O', null);
-  // BST.insert('N', null);
+  BST.insert('E', null);
+  BST.insert('A', null);
+  BST.insert('S', null);
+  BST.insert('Y', null);
+  BST.insert('Q', null);
+  BST.insert('U', null);
+  BST.insert('E', null);
+  BST.insert('S', null);
+  BST.insert('T', null);
+  BST.insert('I', null);
+  BST.insert('O', null);
+  BST.insert('N', null);
 
   // let testTree = new Tree(4, null, null);
   // testTree.left = 6;
@@ -31,7 +31,7 @@ function main() {
   // return isBinary(testTree);
   //return treeHeight(BST);
 
-  return thirdLargest(BST);
+  return thirdLargest(BST, []);
 }
 
 function tree(t) {
@@ -74,22 +74,37 @@ function isBinary(tree) {
 
 
 // Time complexity O(n*2)
-function thirdLargest(tree, maxValues = []){
+function thirdLargest(tree, maxValues) {
   // Find the max and go 2 back.
-  if(!tree.right && !tree.left){
-    if(!maxValues.length){
-      return ;
-    }
-    maxValues.sort();
-    return maxValues[maxValues.length - 3];
+  if(tree && tree.left){
+    thirdLargest(tree.left, maxValues);
   }
-  if (tree.right){
-    return thirdLargest(tree.right, [...maxValues, tree.right.key]);
+  maxValues.push(tree.key);
+  if(tree && tree.right){
+    thirdLargest(tree.right, maxValues);
   }
-  if (tree.left){
-    return thirdLargest(tree.left, [...maxValues, tree.left.key]);
-  }
+  return maxValues[maxValues.length - 3];
+
+
+  // if(!tree.right && !tree.left){
+  //   if(!maxValues.length){
+  //     return;
+  //   }
+  //   if(maxValues.length < 2){
+  //     return maxValues[0];
+  //   }
+  //   maxValues.sort();
+  //   return maxValues[maxValues.length - 3];
+  // }
+  // if (tree.right && !tree.left){
+  //   return thirdLargest(tree.right, [...maxValues, tree.right.key]);
+  // }
+  // if (tree.left && !tree.right){
+  //   return thirdLargest(tree.left, [...maxValues, tree.left.key]);
+  // }
+
 }
+
 
 
 
