@@ -1,123 +1,59 @@
-class BinarySearchTree {
-  constructor(key=null, value=null, parent=null) {
-    this.key = key;
-    this.value = value;
-    this.parent = parent;
-    this.left = null;
-    this.right = null;
-  }
+const Tree = require('./Tree');
 
-  insert(key, value) {
-    if (this.key === null) {
-      this.key = key;
-      this.value = value;
-    }
-    else if (key < this.key) {
-        
-      if (this.left === null) {
-        this.left = new BinarySearchTree(key, value, this);
-      }
-        
-      else {
-        this.left.insert(key, value);
-      }
-    }
-    
-    else {
-      if (this.right === null) {
-        this.right = new BinarySearchTree(key, value, this);
-      }
-      else {
-        this.right.insert(key, value);
-      }
-    }
-  }
+function main() {
+  let BST = new Tree();
 
-  find(key) {
-    if (this.key === key) {
-      return this.value;
-    }
-    else if (key < this.key && this.left) {
-      return this.left.find(key);
-    }
-    else if (key > this.key && this.right) {
-      return this.right.find(key);
-    }
-    else {
-      throw new Error('Key Error');
-    }
-  }
+//   BST.insert(3, 3);
+//   BST.insert(1, 1);
+//   BST.insert(4, 4);
+//   BST.insert(6, 6);
+//   BST.insert(9, 9);
+//   BST.insert(2, 2);
+//   BST.insert(5, 5);
+//   BST.insert(7, 7);
 
-  remove(key) {
-    if (this.key === key) {
-      if (this.left && this.right) {
-        const successor = this.right._findMin();
-        this.key = successor.key;
-        this.value = successor.value;
-        successor.remove(successor.key);
-      }
-      /* If the node only has a left child, 
-           then you replace the node with its left child */
-      else if (this.left) {
-        this._replaceWith(this.left);
-      }
-      /* And similarly if the node only has a right child 
-           then you replace it with its right child */
-      else if (this.right) {
-        this._replaceWith(this.right);
-      }
-      /* If the node has no children then
-           simply remove it and any references to it 
-           by calling "this._replaceWith(null)" */
-      else {
-        this._replaceWith(null);
-      }
-    }
-    else if (key < this.key && this.left) {
-      this.left.remove(key);
-    }
-    else if (key > this.key && this.right) {
-      this.right.remove(key);
-    }
-    else {
-      throw new Error('Key Error');
-    }
-  }
+  BST.insert('E', null);
+  BST.insert('A', null);
+  BST.insert('S', null);
+  BST.insert('Y', null);
+  BST.insert('Q', null);
+  BST.insert('U', null);
+  BST.insert('E', null);
+  BST.insert('S', null);
+  BST.insert('T', null);
+  BST.insert('I', null);
+  BST.insert('O', null);
+  BST.insert('N', null);
 
-  _replaceWith(node) {
-    if (this.parent) {
-      if (this === this.parent.left) {
-        this.parent.left = node;
-      }
-      else if (this === this.parent.right) {
-        this.parent.right = node;
-      }
 
-      if (node) {
-        node.parent = this.parent;
-      }
-    }
-    else {
-      if (node) {
-        this.key = node.key;
-        this.value = node.value;
-        this.left = node.left;
-        this.right = node.right;
-      }
-      else {
-        this.key = null;
-        this.value = null;
-        this.left = null;
-        this.right = null;
-      }
-    }
-  }
 
-  _findMin() {
-    if (!this.left) {
-      return this;
-    }
-    return this.left._findMin();
-  }
+  return treeHeight(BST);
 
 }
+
+function tree(t){
+  /**
+   * This function returns the sum of all the values in our tree! AKA 37.
+   * We think that this function's runtime is linear O(n). This is because
+   * the bigger the tree, the longer it will take since the recursive function call
+   * is being executed on both sides of the tree no matter what.
+   */
+  if(!t){
+    return 0;
+  }
+  return tree(t.left) + t.value + tree(t.right);
+}
+
+
+
+function treeHeight(tree) {
+  
+  if (tree === null) {
+    return 0;
+  }
+
+  return 1 + Math.max(treeHeight(tree.left), treeHeight(tree.right));
+
+}
+
+console.log(main());
